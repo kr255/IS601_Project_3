@@ -1,0 +1,19 @@
+version: "3"
+services:
+  app:
+    build: ./app
+    container_name: "Flask_App"
+    links:
+      - database
+    ports:
+      - "5000:5000"
+
+  database:
+    image: mysql:5.7
+    container_name: "MySql_Database"
+    ports:
+      - 32000:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - ./database:/docker-entrypoint-init.d/:ro
