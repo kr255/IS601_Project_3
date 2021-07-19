@@ -4,11 +4,11 @@ services:
     build: ./app
     container_name: "Flask_App"
     links:
-      - database
+      - db
     ports:
       - "5000:5000"
 
-  database:
+  db:
     image: mysql:5.7
     container_name: "MySql_Database"
     ports:
