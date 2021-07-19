@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS citiesData;
 CREATE DATABASE citiesData;
 use citiesData;
 
