@@ -35,14 +35,14 @@ def index():
     return render_template('index.html', title='Home', user=user, cities=result)
 
 
-# @app.route('/view/<int:city_id>', methods=['GET'])
-# def record_view(city_id):
-#     cursor = mysql.get_db().cursor()
-#     cursor.execute('SELECT * FROM tblCitiesImport WHERE id=%s', city_id)
-#     result = cursor.fetchall()
-#     return render_template('view.html', title='View Form', city=result[0])
-#
-#
+@app.route('/view/<int:city_id>', methods=['GET'])
+def record_view(city_id):
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT * FROM addresses WHERE Postal_Code=%s', city_id)
+    result = cursor.fetchall()
+    return render_template('view.html', title='View Form', city=result[0])
+
+
 # @app.route('/edit/<int:city_id>', methods=['GET'])
 # def form_edit_get(city_id):
 #     cursor = mysql.get_db().cursor()

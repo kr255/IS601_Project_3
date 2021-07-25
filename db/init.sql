@@ -1,3 +1,6 @@
+CREATE DATABASE citiesData;
+use citiesData;
+
 CREATE TABLE IF NOT EXISTS addresses (
     `First_Name` VARCHAR(21) CHARACTER SET utf8,
     `Last_Name` VARCHAR(8) CHARACTER SET utf8,
