@@ -15,13 +15,13 @@
     <tbody>
     {% for city in cities %}
     <tr>
-        <td><a href="view/{{city.id}}">{{ city.fldName }}</a></td>
-        <td>{{ city.fldLat }}</td>
-        <td>{{ city.fldLong }}</td>
-        <td>{{ city.fldCountry }}</td>
-        <td>{{ city.fldAbbreviation }}</td>
-        <td>{{ city.fldCapitalStatus }}</td>
-        <td>{{ city.fldPopulation }}</td>
+        <td><a href="view/{{city.Postal_Code}}">{{ city.Postal_Code }}</a></td>
+        <td>{{ city.First_Name }}</td>
+        <td>{{ city.Last_Name }}</td>
+        <td>{{ city.Street }}</td>
+        <td>{{ city.City }}</td>
+        <td>{{ city.State }}</td>
+        <td>{{ city.Postal_Code }}</td>
     </tr>
     {% endfor %}
     </tbody>
