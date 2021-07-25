@@ -1,3 +1,4 @@
+import os
 from typing import List, Dict
 import simplejson as json
 from flask import Flask, request, Response, redirect
@@ -8,13 +9,22 @@ from pymysql.cursors import DictCursor
 app = Flask(__name__)
 mysql = MySQL(cursorclass=DictCursor)
 
-app.config['MYSQL_DATABASE_HOST'] = 'db'
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
-app.config['MYSQL_DATABASE_PORT'] = 3306
-app.config['MYSQL_DATABASE_DB'] = 'citiesData'
+app.config['MYSQL_DATABASE_HOST'] = os.environ['host']
+app.config['MYSQL_DATABASE_USER'] = os.environ['user']
+app.config['MYSQL_DATABASE_PASSWORD'] = os.environ.get('pass')
+app.config['MYSQL_DATABASE_PORT'] = int(os.environ['port'])
+app.config['MYSQL_DATABASE_DB'] = os.environ['database']
+
+# app.config['MYSQL_DATABASE_HOST'] = 'db'
+# app.config['MYSQL_DATABASE_USER'] = 'root'
+# app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
+# app.config['MYSQL_DATABASE_PORT'] = 3306
+# app.config['MYSQL_DATABASE_DB'] = 'citiesData'
 mysql.init_app(app)
 
+# print(os.environ.get('pass'))
+# print(os.environ.get('database'))
+# print(os.environ.get('host'))
 
 @app.route('/', methods=['GET'])
 def index():
