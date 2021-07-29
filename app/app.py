@@ -88,42 +88,64 @@ def form_delete_post(city_id):
     return redirect("/", code=302)
 
 
-# @app.route('/api/v1/cities', methods=['GET'])
-# def api_browse() -> str:
-#     cursor = mysql.get_db().cursor()
-#     cursor.execute('SELECT * FROM tblCitiesImport')
-#     result = cursor.fetchall()
-#     json_result = json.dumps(result);
-#     resp = Response(json_result, status=200, mimetype='application/json')
-#     return resp
+@app.route('/api/v1/cities', methods=['GET'])
+def api_browse() -> str:
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT * FROM addresses')
+    result = cursor.fetchall()
+    json_result = json.dumps(result);
+    resp = Response(json_result, status=200, mimetype='application/json')
+    return resp
+
+
+@app.route('/api/v1/cities/<int:city_id>', methods=['GET'])
+def api_retrieve(city_id) -> str:
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT * FROM addresses WHERE Address_id=%s', city_id)
+    result = cursor.fetchall()
+    json_result = json.dumps(result);
+    resp = Response(json_result, status=200, mimetype='application/json')
+    return resp
+
+
+@app.route('/api/v1/cities/<int:city_id>', methods=['PUT'])
+def api_edit(city_id) -> str:
+    cursor = mysql.get_db().cursor()
+    content = request.json
+    inputData = (content['fldName'], content['fldLat'], content['fldLong'],
+                 content['fldCountry'], content['fldAbbreviation'],
+                 content['fldCapitalStatus'], content['fldPopulation'],city_id)
+    sql_update_query = """UPDATE addresses t SET t.First_Name = %s, t.City = %s, t.State = %s, t.Street =
+        %s, t.Last_Name = %s, t.Postal_Code = %s, t.Address_id = %s WHERE t.Address_id = %s """
+    cursor.execute(sql_update_query, inputData)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
+    return resp
 #
-#
-# @app.route('/api/v1/cities/<int:city_id>', methods=['GET'])
-# def api_retrieve(city_id) -> str:
-#     cursor = mysql.get_db().cursor()
-#     cursor.execute('SELECT * FROM tblCitiesImport WHERE id=%s', city_id)
-#     result = cursor.fetchall()
-#     json_result = json.dumps(result);
-#     resp = Response(json_result, status=200, mimetype='application/json')
-#     return resp
-#
-#
-# @app.route('/api/v1/cities/', methods=['POST'])
+# @app.route('/api/v1/cities', methods=['POST'])
 # def api_add() -> str:
+#
+#     content = request.json
+#
+#     cursor = mysql.get_db().cursor()
+#     inputData = (content['fldName'], content['fldLat'], content['fldLong'],
+#                  content['fldCountry'], content['fldAbbreviation'],
+#                  content['fldCapitalStatus'], request.form.get('fldPopulation'))
+#     sql_insert_query = """INSERT INTO tblCitiesImport (fldName,fldLat,fldLong,fldCountry,fldAbbreviation,fldCapitalStatus,fldPopulation) VALUES (%s, %s,%s, %s,%s, %s,%s) """
+#     cursor.execute(sql_insert_query, inputData)
+#     mysql.get_db().commit()
 #     resp = Response(status=201, mimetype='application/json')
 #     return resp
 #
-#
-# @app.route('/api/v1/cities/<int:city_id>', methods=['PUT'])
-# def api_edit(city_id) -> str:
-#     resp = Response(status=201, mimetype='application/json')
-#     return resp
-#
-#
-# @app.route('/api/cities/<int:city_id>', methods=['DELETE'])
+# @app.route('/api/v1/cities/<int:city_id>', methods=['DELETE'])
 # def api_delete(city_id) -> str:
-#     resp = Response(status=210, mimetype='application/json')
+#     cursor = mysql.get_db().cursor()
+#     sql_delete_query = """DELETE FROM tblCitiesImport WHERE id = %s """
+#     cursor.execute(sql_delete_query, city_id)
+#     mysql.get_db().commit()
+#     resp = Response(status=200, mimetype='application/json')
 #     return resp
+
 
 
 if __name__ == '__main__':
