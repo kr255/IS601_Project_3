@@ -6,8 +6,8 @@ Goal of this project
   1. Goal of the second part was to create HTML forms 
      1. to create new records
      1. update records
-     1. delete records
-has no fields other than a submit button to delete records
+     1. delete records via a submit button.
+     1. populate mysql database using init.sql within the docker container. 
 
 
 ## Assignments
