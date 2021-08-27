@@ -8,10 +8,8 @@ Goal of this project
      1. update records
      1. delete records via a submit button.
      1. populate mysql database using init.sql within the docker container. 
-
-
-## Assignments
-* [Assignment 3](formIntro-pycharm.pdf)
+  1. Lastly test the API's BREAD functionalities using Postman. 
 
 ## Screenshots
 See attached Word file
+
